@@ -1,0 +1,7 @@
+*.crx
+*.pem
+*.swp
+*.swo
+.DS_Store
+
+*.zip

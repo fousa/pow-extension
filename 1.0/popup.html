@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+		<title>Pow Toolbar Button</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$("input").select();
+				$("form").live("submit", function() {
+					if ($("#noun").val().length > 0) {
+						var options = chrome.extension.getBackgroundPage().getOptionAll();
+						var tab = options.openNewTab;
+
+						if (tab == "yes") {
+							chrome.tabs.create({ url: "http://" + $("#noun").val() + ".dev/" });
+						} else {
+						//	chrome.tabs.getCurrent({ url: "http://" + $("#noun").val() + ".dev/" });
+						}
+					}
+					window.close();
+
+					return false;
+				});
+			});
+		</script>
+		<style>
+			* { padding: 0; margin: 0; }
+			html { height: 60; }
+			body { min-width: 300px; height: 60; }
+			h1 { background: #fff; font-weight: normal; font-family: "Helvetica Neue"; font-shadow: 0 1px 0 white; font-size: 20px; margin: 5px 5px 0px 5px; color: #3B3B30; }
+			input { font-family: "Helvetica Neue"; font-shadow: 0 1px 0 white;  font-size: 25px; width: 290px; margin: 10px 5px; color: #3B3B30; border: 2px solid #3B3B30; }
+			strong { font-weight: bold; font-style: italic; }
+		</style>
+  	</head>
+  	<body>
+			<h1>Enter your <strong>Pow!!</strong> app</h1>
+  		<form method="GET">
+				<input type="text" id="noun" />
+  		</form>
+	</body>
+</html>
+

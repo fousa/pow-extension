@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<title>Pow!! Options</title>
+		<style type="text/css">
+			* { padding: 0; margin: 0; }
+			h1 { background: #fff url(icon_48.png) center left no-repeat; font-family: Verdana; font-size: 40px; padding-left: 60; margin: 25px 25px; color: #323232; }
+			label { font-size: 15px; width: 210px; font-family: verdana; margin: 10px 10px 10px 90px; color: #323232; }
+			.close { font-size: 15px; font-family: verdana; margin: 20px 10px 10px 90px; color: #323232; }
+			span { margin-left: 10px; }
+			p { margin-top: 10px; }
+		</style>		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$("input[type=checkbox]").live("click", function() {
+					state = $(this).is(":checked") ? "yes" : "no";
+					chrome.extension.getBackgroundPage().setOptionValue($(this).attr("id"), state);
+
+					id = $(this).attr("id");
+					$(this).after("<span class='message-" + id + "'>Saved!</span>");
+					$(this).attr("disabled", true);
+					checkbox = $(this);
+					setTimeout(function() {
+						$(".message-" + id).remove();
+						checkbox.attr("disabled", null);
+					}, 1000);
+				});
+			});
+
+			function loadOptions() {
+				var options = chrome.extension.getBackgroundPage().getOptionAll();
+				document.getElementById("openNewTab").checked = ("yes" == options.openNewTab);
+			}
+		</script>
+	</head>
+	<body onload="loadOptions()">
+		<h1>Pow!! Options</h1>
+		<form name="optionsForm">
+			<p>
+				<label for="openNewTab">Open the URL in a new tab after generation:</label>
+				<input type="checkbox" id="openNewTab" name="openNewTab" />
+			</p>
+		</form>
+	</body>
+</html>
+

@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<script>
+			function getOptionValue(name, defaultValue) {	
+				var value = localStorage[name];	
+				
+				if (!value) {
+					return defaultValue;
+				}		
+				
+				return value;
+			}
+
+			function setOptionValue(name, value) {	
+				if (value) {
+					localStorage[name] = value;
+				}
+				else {
+					localStorage.removeItem(name);
+				}
+			}
+
+			function getOpenNewTab() {
+				return getOptionValue("openNewTab", "yes");
+			}
+
+			function setOptionOpenNewTab(value) {
+				setOptionValue("openNewTab", value);
+			}
+
+			function getOptionAll() {
+				return {
+					openNewTab: getOpenNewTab()
+				};
+			}
+
+			function setOptionAll(value) {
+				setOptionValue("openNewTab", value.openNewTab);
+			}
+		</script>
+  	</head>
+</html>
+
+
+
