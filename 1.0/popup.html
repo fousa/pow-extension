@@ -10,11 +10,14 @@
 					if ($("#noun").val().length > 0) {
 						var options = chrome.extension.getBackgroundPage().getOptionAll();
 						var tab = options.openNewTab;
+						var url = "http://" + $("#noun").val() + ".dev/";
 
 						if (tab == "yes") {
-							chrome.tabs.create({ url: "http://" + $("#noun").val() + ".dev/" });
+							chrome.tabs.create({ url: url });
 						} else {
-						//	chrome.tabs.getCurrent({ url: "http://" + $("#noun").val() + ".dev/" });
+							chrome.tabs.getSelected(null, function(tab) {
+								chrome.tabs.update(tab.id, { url: url });
+							});
 						}
 					}
 					window.close();
